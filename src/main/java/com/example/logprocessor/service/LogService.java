@@ -1,18 +1,16 @@
 package com.example.logprocessor.service;
 
-import com.example.logprocessor.dto.LogRequestDto;
 import com.example.logprocessor.model.LogEntry;
 import com.example.logprocessor.repository.LogRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 @Service
+@Slf4j
 public class LogService {
 
     private final LogRepository logRepository;
@@ -23,16 +21,21 @@ public class LogService {
     }
 
     public LogEntry saveLog(LogEntry logEntry) {
-        // Optionally, if the timestamp is not set, set it here as well.
-        if (logEntry.getTimestamp() == null) {
-            logEntry.setTimestamp(System.currentTimeMillis());
+        try {
+            return logRepository.save(logEntry);
+        } catch (Exception e) {
+            log.error("Error saving log entry: {}", logEntry, e);
+          
+            throw e;
         }
-        return logRepository.save(logEntry);
     }
 
-    // Retrieve the top 3 most recent logs
     public List<LogEntry> getRecentLogs() {
-        return logRepository.findAll(PageRequest.of(0, 3)).getContent();
+        try {
+            return logRepository.findAll(PageRequest.of(0, 3)).getContent();
+        } catch (Exception e) {
+            log.error("Error fetching recent logs", e);
+            throw e;
+        }
     }
 }
-

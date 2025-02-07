@@ -33,8 +33,6 @@ public class LogEntry {
     private String appVersion;
     private Long responseTime;
     private Map<String, Object> metadata;
-
-    // Store the timestamp as epoch milliseconds.
     @Field(type = FieldType.Date, format = DateFormat.epoch_millis)
     private Long timestamp;
 }

@@ -13,8 +13,7 @@ public class ElasticSearchConfig {
     @Bean
     public ElasticsearchCustomConversions elasticsearchCustomConversions() {
         return new ElasticsearchCustomConversions(List.of(
-            // new LocalDateTimeConverter(),
-            // new LocalDateTimeToLongConverter()
+          
         ));
     }
 }
