@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/logs")
-@Slf4j  // Lombok annotation to provide a logger
+@Slf4j
 public class LogController {
 
     private final LogService logService;
@@ -24,27 +25,25 @@ public class LogController {
     }
 
     @PostMapping
-    public ResponseEntity<LogEntry> createLog(@Valid @RequestBody LogEntry logEntry) {
-        try {
-            if (logEntry.getTimestamp() == null) {
-                logEntry.setTimestamp(System.currentTimeMillis());
-            }
-            LogEntry savedEntry = logService.saveLog(logEntry);
-            return new ResponseEntity<>(savedEntry, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            log.error("Error creating log entry", ex);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    public CompletableFuture<ResponseEntity<LogEntry>> createLog(@Valid @RequestBody LogEntry logEntry) {
+        if (logEntry.getTimestamp() == null) {
+            logEntry.setTimestamp(System.currentTimeMillis());
         }
+        return logService.saveLogAsync(logEntry)
+                .thenApply(savedEntry -> new ResponseEntity<>(savedEntry, HttpStatus.CREATED))
+                .exceptionally(ex -> {
+                    log.error("Error creating log entry", ex);
+                    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                });
     }
 
     @GetMapping("/recent")
-    public ResponseEntity<List<LogEntry>> getRecentLogs() {
-        try {
-            List<LogEntry> logs = logService.getRecentLogs();
-            return new ResponseEntity<>(logs, HttpStatus.OK);
-        } catch (Exception ex) {
-            log.error("Error retrieving recent logs", ex);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public CompletableFuture<ResponseEntity<List<LogEntry>>> getRecentLogs() {
+        return logService.getRecentLogsAsync()
+                .thenApply(logs -> new ResponseEntity<>(logs, HttpStatus.OK))
+                .exceptionally(ex -> {
+                    log.error("Error retrieving recent logs", ex);
+                    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                });
     }
 }

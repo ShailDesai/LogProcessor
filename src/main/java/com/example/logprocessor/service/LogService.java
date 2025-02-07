@@ -5,9 +5,11 @@ import com.example.logprocessor.repository.LogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -20,22 +22,29 @@ public class LogService {
         this.logRepository = logRepository;
     }
 
-    public LogEntry saveLog(LogEntry logEntry) {
+    @Async
+    public CompletableFuture<LogEntry> saveLogAsync(LogEntry logEntry) {
         try {
-            return logRepository.save(logEntry);
+            LogEntry savedEntry = logRepository.save(logEntry);
+            return CompletableFuture.completedFuture(savedEntry);
         } catch (Exception e) {
             log.error("Error saving log entry: {}", logEntry, e);
-          
-            throw e;
+            CompletableFuture<LogEntry> future = new CompletableFuture<>();
+            future.completeExceptionally(e);
+            return future;
         }
     }
 
-    public List<LogEntry> getRecentLogs() {
+    @Async
+    public CompletableFuture<List<LogEntry>> getRecentLogsAsync() {
         try {
-            return logRepository.findAll(PageRequest.of(0, 3)).getContent();
+            List<LogEntry> logs = logRepository.findAll(PageRequest.of(0, 3)).getContent();
+            return CompletableFuture.completedFuture(logs);
         } catch (Exception e) {
             log.error("Error fetching recent logs", e);
-            throw e;
+            CompletableFuture<List<LogEntry>> future = new CompletableFuture<>();
+            future.completeExceptionally(e);
+            return future;
         }
     }
 }
