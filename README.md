@@ -7,5 +7,5 @@ Overall, Elasticsearch’s combination of high-speed ingestion, real-time search
 
 
 Images FOr Post and Get Request
-![Uploading Screenshot 2025-02-07 at 6.51.39 AM.png…]()
-![Uploading Screenshot 2025-02-07 at 6.52.00 AM.png…]()
+Uploading Screenshot 2025-02-07 at 6.51.39 AM.png
+Uploading Screenshot 2025-02-07 at 6.52.00 AM.png
