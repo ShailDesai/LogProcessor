@@ -6,6 +6,10 @@ Overall, Elasticsearch’s combination of high-speed ingestion, real-time search
 
 
 
+Data in below example is dummy Data 
+
+
+
 Images FOr Post and Get Request
 
 Post Request for Saving the Log Data
