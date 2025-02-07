@@ -1,14 +1,23 @@
-FYI: This setup utilizes Docker to run Elasticsearch locally without relying on an environment file. For production environments, however, it is imperative to secure Elasticsearch credentials by storing the username and password in environment variables and ensuring the connection is protected using SSL/TLS certificates, in accordance with industry best practices.
+FYI: This configuration runs a Java Spring Boot Maven application for the database. It leverages Docker to operate Elasticsearch locally without the need for an environment file. However, in production, it is essential to protect Elasticsearch credentials by storing the username and password in environment variables and securing the connection with SSL/TLS certificates, in line with industry best practices.
+
+Links used for setup :  
+Medium article: https://deepsil.medium.com/the-ultimate-guide-to-installing-elasticsearch-with-docker-2ec119b1b07f  
+Springboot Application setup : https://start.spring.io/  
+Tutorial: https://spring.io/guides/tutorials/rest  
+Docker for Mac: https://docs.docker.com/desktop/setup/install/mac-install/  
+
+To Run the application:     
+Clean Build Command: ./mvnw clean install    
+Server Run command : ./mvnw spring-boot:run  
+Docker without ssl config (unsafe): curl http://localhost:9200   
 
 
 
-Question: Why I choose Elastic Search as Database?
+Question: Why I choose Elastic Search as Database?  
 
-Answer: For our log data ingestion and retrieval application, I have selected Elasticsearch as the optimal database solution. Elasticsearch is a distributed, RESTful search and analytics engine that is purpose-built to handle large volumes of unstructured data. Its core architecture is based on indexing, which converts raw log entries into a format that supports fast, complex searches and aggregations—features that are essential for processing and analyzing log data in real time.
-
-One of the main advantages of Elasticsearch is its scalability. It is designed to scale horizontally, meaning that as the volume of log data increases, additional nodes can be added to the cluster to maintain performance. This scalability is crucial for handling the write-heavy workloads typical in log ingestion systems. Moreover, Elasticsearch’s support for bulk operations allows it to efficiently process high-velocity data streams, ensuring that the system remains responsive under heavy load.
-
-In contrast, traditional SQL databases are primarily optimized for structured, relational data and transactional operations, making them less flexible for the dynamic and unstructured nature of log data. Although NoSQL options like MongoDB can store unstructured data, they often lack the robust full-text search capabilities and specialized analytics functions that Elasticsearch provides.Overall, Elasticsearch offers a combination of high-speed ingestion, real-time search, and scalable architecture, making it well suited for our log management system. These features ensure efficient data storage and retrieval while supporting effective monitoring, alerting, and historical analysis of log data.
+Answer: For our log data ingestion and retrieval application, I have selected Elasticsearch as the optimal database solution. Elasticsearch is a distributed, RESTful search and analytics engine that is purpose-built to handle large volumes of unstructured data. Its core architecture is based on indexing, which converts raw log entries into a format that supports fast, complex searches and aggregations—features that are essential for processing and analyzing log data in real time.  
+One of the main advantages of Elasticsearch is its scalability. It is designed to scale horizontally, meaning that as the volume of log data increases, additional nodes can be added to the cluster to maintain performance. This scalability is crucial for handling the write-heavy workloads typical in log ingestion systems. Moreover, Elasticsearch’s support for bulk operations allows it to efficiently process high-velocity data streams, ensuring that the system remains responsive under heavy load.  
+In contrast, traditional SQL databases are primarily optimized for structured, relational data and transactional operations, making them less flexible for the dynamic and unstructured nature of log data. Although NoSQL options like MongoDB can store unstructured data, they often lack the robust full-text search capabilities and specialized analytics functions that Elasticsearch provides.Overall, Elasticsearch offers a combination of high-speed ingestion, real-time search, and scalable architecture, making it well suited for our log management system. These features ensure efficient data storage and retrieval while supporting effective monitoring, alerting, and historical analysis of log data.  
 
 
 
