@@ -1,4 +1,8 @@
-Question:Why I choose Elastic Search as Database?
+FYI: This setup utilizes Docker to run Elasticsearch locally without relying on an environment file. For production environments, however, it is imperative to secure Elasticsearch credentials by storing the username and password in environment variables and ensuring the connection is protected using SSL/TLS certificates, in accordance with industry best practices.
+
+
+
+Question: Why I choose Elastic Search as Database?
 
 Answer: For our log data ingestion and retrieval application, I have selected Elasticsearch as the optimal database solution. Elasticsearch is a distributed, RESTful search and analytics engine that is purpose-built to handle large volumes of unstructured data. Its core architecture is based on indexing, which converts raw log entries into a format that supports fast, complex searches and aggregations—features that are essential for processing and analyzing log data in real time.
 
