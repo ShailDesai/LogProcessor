@@ -7,5 +7,11 @@ Overall, Elasticsearch’s combination of high-speed ingestion, real-time search
 
 
 Images FOr Post and Get Request
-Uploading Screenshot 2025-02-07 at 6.51.39 AM.png
-Uploading Screenshot 2025-02-07 at 6.52.00 AM.png
+
+Post Request for Saving the Log Data
+<img width="1229" alt="Screenshot 2025-02-07 at 6 52 00 AM" src="https://github.com/user-attachments/assets/6abee5fd-c26a-4e76-a81c-07f253a0b14b" />
+
+Get Request to Get top 3 Logs
+<img width="1391" alt="Screenshot 2025-02-07 at 6 51 39 AM" src="https://github.com/user-attachments/assets/e7ecad68-0eb1-4df0-b074-b3fea6cd90cb" />
+
+
